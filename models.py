@@ -16,6 +16,8 @@ class Item(Entity):
   type = ManyToOne('Type')
   tags = ManyToMany('Tag')
 
+  created_on = Field(DateTime)
+
 class Type(Entity):
   id = Field(Integer, primary_key=True)
   name = Field(Unicode)
