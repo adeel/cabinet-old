@@ -13,12 +13,12 @@ class Item(Entity):
   id = Field(Integer, primary_key=True)
   content = Field(UnicodeText)
 
-  type = ManyToOne('Type')
+  group = ManyToOne('Group')
   tags = ManyToMany('Tag')
 
   created_on = Field(DateTime, default=datetime.datetime.now)
 
-class Type(Entity):
+class Group(Entity):
   id = Field(Integer, primary_key=True)
   name = Field(Unicode)
   items = OneToMany('Item')
@@ -36,17 +36,17 @@ if __name__ == '__main__':
 
   # Populate.
 
-  types = {
-    'mail': Type(name='mail'),
-    'todo': Type(name='todo')}
+  groups = {
+    'mail': Group(name='mail'),
+    'todo': Group(name='todo')}
   tags = {
     'math': Tag(name='math'),
     'school': Tag(name='school')}
 
-  types['mail'].items = [
+  groups['mail'].items = [
     Item(content="Message 1.", tags=[tags['math']]),
     Item(content="Message 2.", tags=[tags['school']])]
-  types['todo'].items = [
+  groups['todo'].items = [
     Item(content="Todo 1.", tags=[tags['math']]),
     Item(content="Todo 2.", tags=[tags['school']]),
   ]
