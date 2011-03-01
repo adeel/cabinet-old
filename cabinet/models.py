@@ -16,7 +16,7 @@ class Item(Entity):
   type = ManyToOne('Type')
   tags = ManyToMany('Tag')
 
-  created_on = Field(DateTime)
+  created_on = Field(DateTime, default=datetime.datetime.now)
 
 class Type(Entity):
   id = Field(Integer, primary_key=True)
