@@ -1,5 +1,6 @@
 cab list
 cab list <type>
+cab add <type>
 cab add <type> <filename> <tags>
 cab show id
 cab edit id

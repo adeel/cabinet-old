@@ -2,6 +2,9 @@ import cabinet
 from cabinet import *
 from cabinet import etc, errors
 
+import subprocess
+import tempfile
+
 def all():
   items = list(db.items.find())
 
@@ -19,7 +22,7 @@ def all():
 
   return '\n'.join(output)
 
-def type(name=None):
+def type(name):
   items = list(db.items.find({'type': name}))
 
   maxes = etc.get_max_widths(items, ('id', 'type'))
@@ -35,7 +38,11 @@ def type(name=None):
 
   return '\n'.join(output)
 
-def add(type, filename, *tags):
+def add(type, filename=None, *tags):
+  if not filename:
+    filename = tempfile.NamedTemporaryFile(mode='w+t', delete=False).name
+    editor = os.path.expandvars('$EDITOR')
+    subprocess.call([editor, filename])
   try:
     content = open(filename, 'r').read()
   except IOError:
@@ -61,3 +68,15 @@ def show(type, id):
     raise errors.NoSuchItem(id)
 
   return item['content']
+
+def delete(type, id):
+  try:
+    id = int(id)
+  except ValueError:
+    raise errors.NoSuchItem(id)
+  item = db.items.find_one({'type': type, 'id': id})
+  if not item:
+    raise errors.NoSuchItem(id)
+
+  db.items.remove(item['_id'])
+  return ''
