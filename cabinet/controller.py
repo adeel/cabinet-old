@@ -16,8 +16,9 @@ def all():
       colored(i['type'].ljust(maxes['type']), 'green'),
       str(i['id']).ljust(maxes['id']),
       colored(' '.join([t for t in i['tags']]), 'yellow'))
-    line += " %s" % (
-      colored(i['content'].splitlines()[0][:79 - len(line)], attrs=['bold']))
+    if i['content']:
+      line += " %s" % (
+        colored(i['content'].splitlines()[0][:79 - len(line)], attrs=['bold']))
     output.append(line)
 
   return '\n'.join(output)
@@ -32,8 +33,9 @@ def type(name):
     line = "%s %s" % (
       str(i['id']).ljust(maxes['id']),
       colored(' '.join([t for t in i['tags']]), 'yellow'))
-    line += " %s" % (
-      colored(i['content'].splitlines()[0][:79 - len(line)], attrs=['bold']))
+    if i['content']:
+      line += " %s" % (
+        colored(i['content'].splitlines()[0][:79 - len(line)], attrs=['bold']))
     output.append(line)
 
   return '\n'.join(output)
