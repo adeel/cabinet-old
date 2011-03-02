@@ -83,6 +83,8 @@ def tag(type, id, *tags):
   db.items.update({'_id': item['_id']}, {'$set': {'tags':
     item['tags'] + list(tags)}})
 
+  return ''
+
 def delete(type, id):
   try:
     id = int(id)
