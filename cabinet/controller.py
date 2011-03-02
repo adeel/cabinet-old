@@ -71,6 +71,18 @@ def show(type, id):
 
   return item['content']
 
+def tag(type, id, *tags):
+  try:
+    id = int(id)
+  except ValueError:
+    raise errors.NoSuchItem(id)
+  item = db.items.find_one({'type': type, 'id': id})
+  if not item:
+    raise errors.NoSuchItem(id)
+
+  db.items.update({'_id': item['_id']}, {'$set': {'tags':
+    item['tags'] + list(tags)}})
+
 def delete(type, id):
   try:
     id = int(id)

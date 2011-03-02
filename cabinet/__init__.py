@@ -26,6 +26,8 @@ def delegate(command, params):
     return controller.add(*params)
   elif command == 'show':
     return controller.show(*params)
+  elif command == 'tag':
+    return controller.tag(*params)
   elif command == 'delete':
     return controller.delete(*params)
   return "cabinet"
