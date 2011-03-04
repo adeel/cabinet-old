@@ -1,6 +1,5 @@
 import os, sys
 import pymongo
-import jinja2
 from termcolor import colored
 
 db = pymongo.Connection().cabinet
