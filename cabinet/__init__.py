@@ -15,7 +15,9 @@ def execute(args):
   command = args.pop(0)
   params = args
 
-  print delegate(command, params)
+  output = delegate(command, params)
+  if output:
+    print output
 
 def delegate(command, params):
   if command == 'list' and not params:
