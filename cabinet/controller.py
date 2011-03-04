@@ -58,8 +58,6 @@ def add(type, filename=None, *tags):
 
   db.items.insert({'id': id, 'type': type, 'content': content, 'tags': tags})
 
-  return ''
-
 def show(type, id):
   try:
     id = int(id)
@@ -83,7 +81,16 @@ def tag(type, id, *tags):
   db.items.update({'_id': item['_id']}, {'$set': {'tags':
     item['tags'] + list(tags)}})
 
-  return ''
+def archive(type, id):
+  try:
+    id = int(id)
+  except ValueError:
+    raise errors.NoSuchItem(id)
+  item = db.items.find_one({'type': type, 'id': id})
+  if not item:
+    raise errors.NoSuchItem(id)
+
+  db.items.update({'_id': item['_id']}, {'$set': {'is_archived': True}})
 
 def delete(type, id):
   try:
@@ -95,4 +102,3 @@ def delete(type, id):
     raise errors.NoSuchItem(id)
 
   db.items.remove(item['_id'])
-  return ''
