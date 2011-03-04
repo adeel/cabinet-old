@@ -34,12 +34,3 @@ def delegate(command, params):
   elif command == 'delete':
     return controller.delete(*params)
   return "cabinet"
-
-def render(template, data):
-  env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(
-      os.path.abspath(__file__)), 'views')))
-
-  env.filters['ljust'] = lambda s, w: s.ljust(w)
-  return env.get_template(template).render(
-        data).encode('utf-8')
