@@ -1,0 +1,6 @@
+#!/usr/bin/env python2
+
+import cabinet
+
+if __name__ == '__main__':
+  cabinet.main()
